@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SearchService</name>
+    </assembly>
+    <members>
+        <member name="M:SearchService.SearchService.MovieSearch(MovieRental.DataModel.Connect.MovieRentalSearchModel)">
+            <summary>
+            Returns list of Movies matched the given search terms
+            </summary>
+            <param name="movieRentalSearchModel"></param>
+            <returns>List of movies matched the search term</returns>
+        </member>
+        <member name="M:SearchService.ISearchService.MovieSearch(MovieRental.DataModel.Connect.MovieRentalSearchModel)">
+            <summary>
+            Returns list of Movies matched the given search terms
+            </summary>
+            <param name="movieRentalSearchModel"></param>
+            <returns>List of movies matched the search term</returns>
+        </member>
+    </members>
+</doc>
