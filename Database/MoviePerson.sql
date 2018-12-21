@@ -1,0 +1,23 @@
+USE [MovieRental]
+GO
+
+/****** Object:  Table [dbo].[MoviePerson]    Script Date: 12/20/2018 9:07:31 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MoviePerson](
+	[Id] [INT] IDENTITY(1,1) NOT NULL,
+	[MovieId] [BIGINT] NULL,
+	[PersonId] [INT] NULL,
+ CONSTRAINT [PK_MoviePerson] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
