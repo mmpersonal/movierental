@@ -1,4 +1,4 @@
-﻿using MovieRental.DataModel.Connect;
+using MovieRental.DataModel.Connect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +66,10 @@ namespace MovieRental.API
             }
         }
 
+        /// <summary>
+        /// Gets summary data for all movies from the catalog/inventory
+        /// </summary>
+        /// <returns>Summary metdata for movies such as description,title,thumbnail, rating, genre, release Year</returns>
         [OperationContract]
         public MoviesResult GetAllMovies()
         {
@@ -109,7 +113,11 @@ namespace MovieRental.API
                 return new MoviesResult(ex);
             }
         }
-
+        /// <summary>
+        /// Submits metadata about the movie to the catalog/inventory. Adds the movie metadata into catalog
+        /// </summary>
+        /// <returns>status code and as movieId ( unique identifier for the movie in the catalog). 
+        /// Unique movieId should be used for update/remove operations in the service to update and remove the movie in the catalog respectively</returns>
         [OperationContract]
         public MovieSubmissionResult SubmitMovie(MoviePersonDetails moviePersonDetails)
         {
@@ -194,12 +202,19 @@ namespace MovieRental.API
             
         }
 
-
+        /// <summary>
+        /// Update the movie information in the catalog/inventory. you will need movieId to update the movie information and personId to update the peeps information in the catalog
+        /// MovieId and PersonId can be retrieved by GetMoviebyName, GetMovieByGenre etc
+        /// </summary>
+        /// <returns>status code and as movieId ( unique identifier for the movie in the catalog). 
+        /// Unique movieId should be used for update/remove operations in the service to update and remove the movie in the catalog respectively</returns>
         [OperationContract]
         public MovieSubmissionResult UpdateMovie(MoviePersonDetails moviePersonDetails)
         {
             //TODO: insert update should be moved to Movie repository like. if primarykey value is zero , update it and if not add it
             //This is duplicate code and by doing above refactor, duplicate code issue will be taken care of.
+            //TODO: will need secure the APIs and prevent from customer maliciously modifying the data and unintentionally as well.
+            // will need to determine who can modify the data or add data
             try
             {
                 MovieSubmissionResult result = new MovieSubmissionResult();
@@ -300,7 +315,122 @@ namespace MovieRental.API
         [OperationContract]
         public ConnectResult GetAvailabilityStatus(int MovieId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<MovieSummary> movieSummaries = new List<MovieSummary>();
+                ConnectResult result = new ConnectResult(ConnectStatusCode.Success);
+                bool isavailable = false;
+                using (var context = new MRRepositoryFactory(new MovieRentalEntityContext()))
+                {
+                    isavailable = context.Movies.GetAvailabilityStatus(MovieId);
+                    
+                }
+                result.Data = isavailable;
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new MoviesResult(ex);
+            }
+        }
+
+        /// <summary>
+        /// Get all movies metdata by category/genre
+        /// </summary>
+        /// <param name="category/genre"> Genre/Category Enum values of the movie such as Action</param>
+        /// <returns>Statuscode and the list of Movie object that has Summary metdata for movies such as description,title,thumbnail, rating, genre, release Year</returns>
+        [OperationContract]
+        public MoviesResult GetMoviesByCategory(CategoryEnum category)
+        {
+            //TODO: not sure how much this call will be useful. Perhaps this should be deprecated
+            //and same thoughts as Getallavailablemovies() to limit the payload size for improving the performance
+            //
+            try
+            {
+                List<MovieSummary> movieSummaries = new List<MovieSummary>();
+                MoviesResult result = new MoviesResult();
+                using (var context = new MRRepositoryFactory(new MovieRentalEntityContext()))
+                {
+                    var movies = context.Movies.GetMoviesByCategory((int)category).ToList();
+                    if (movies != null && movies.Count > 0)
+                    {
+                        foreach (Movie movie in movies)
+                        {
+                            MovieSummary movieSummary = new MovieSummary();
+                            movieSummary.Description = movie.Description;
+                            movieSummary.IsAvailable = true;
+                            movieSummary.Length = movie.Length;
+                            movieSummary.ReleaseYear = movie.ReleaseYear;
+                            movieSummary.rental_duration = movie.rental_duaration;
+                            movieSummary.rental_rate = movie.rental_rate;
+                            movieSummary.Summary = movie.Summary;
+                            movieSummary.Title = movie.Title;
+                            movieSummary.MovieId = movie.MovieId;
+                            movieSummary.Category = (CategoryEnum)movie.CategoryId;
+                            movieSummary.Language = (LanguageEnum)movie.LanguageId;
+                            movieSummary.Rating = (RatingEnum)movie.RatingId;
+                            movieSummaries.Add(movieSummary);
+                        }
+                    }
+                }
+                result.movies = movieSummaries;
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new MoviesResult(ex);
+            }
+        }
+
+        /// <summary>
+        /// Get all movies metdata by MPAA rating 
+        /// </summary>
+        /// <param name="rating">MPAA rating enum such as G</param>
+        /// <returns>Statuscode and the list of Movie object that has Summary metdata for movies such as description,title,thumbnail, rating, genre, release Year</returns>
+        [OperationContract]
+        public MoviesResult GetMoviesByRating(RatingEnum rating)
+        {
+            //TODO: not sure how much this call will be useful. Perhaps this should be deprecated
+            //and same thoughts as Getallavailablemovies() to limit the payload size for improving the performance
+            //
+            try
+            {
+                List<MovieSummary> movieSummaries = new List<MovieSummary>();
+                MoviesResult result = new MoviesResult();
+                using (var context = new MRRepositoryFactory(new MovieRentalEntityContext()))
+                {
+                    var movies = context.Movies.GetMoviesByRating((int)rating).ToList();
+                    if (movies != null && movies.Count > 0)
+                    {
+                        foreach (Movie movie in movies)
+                        {
+                            MovieSummary movieSummary = new MovieSummary();
+                            movieSummary.Description = movie.Description;
+                            movieSummary.IsAvailable = true;
+                            movieSummary.Length = movie.Length;
+                            movieSummary.ReleaseYear = movie.ReleaseYear;
+                            movieSummary.rental_duration = movie.rental_duaration;
+                            movieSummary.rental_rate = movie.rental_rate;
+                            movieSummary.Summary = movie.Summary;
+                            movieSummary.Title = movie.Title;
+                            movieSummary.MovieId = movie.MovieId;
+                            movieSummary.Category = (CategoryEnum)movie.CategoryId;
+                            movieSummary.Language = (LanguageEnum)movie.LanguageId;
+                            movieSummary.Rating = (RatingEnum)movie.RatingId;
+                            movieSummaries.Add(movieSummary);
+                        }
+                    }
+                }
+                result.movies = movieSummaries;
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new MoviesResult(ex);
+            }
         }
     }
 }
