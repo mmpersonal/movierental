@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MovieRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShortDesc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="64" />
+          <Property Name="LastName" Type="varchar" MaxLength="64" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="CustAddressId" />
+          </Key>
+          <Property Name="CustAddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StreetAddress2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="StateCode" Type="char" MaxLength="2" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieId" Type="int" />
+          <Property Name="Isavailable" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LangId" />
+          </Key>
+          <Property Name="LangId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LangName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReleaseYear" Type="smallint" />
+          <Property Name="rental_duaration" Type="smallint" />
+          <Property Name="rental_rate" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Length" Type="smallint" />
+          <Property Name="RatingId" Type="int" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoviePerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieId" Type="bigint" />
+          <Property Name="PersonId" Type="int" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="PaymentTypeId" />
+          </Key>
+          <Property Name="PaymentTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LasttName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="RentalId" />
+          </Key>
+          <Property Name="RentalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InventoryId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
+          <Property Name="RentedOn" Type="datetime" />
+          <Property Name="RentalValidUntil" Type="datetime" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StateCode">
+          <Key>
+            <PropertyRef Name="StateCode" />
+          </Key>
+          <Property Name="StateCode" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeZone" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime2" Precision="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_CustomerAddress_dbo_Customert">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomerAddress_StateCode">
+          <End Role="StateCode" Type="Self.StateCode" Multiplicity="0..1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateCode">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MovieRentalModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoviePerson" EntityType="Self.MoviePerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonRole" EntityType="Self.PersonRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rental" EntityType="Self.Rental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateCode" EntityType="Self.StateCode" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_CustomerAddress_dbo_Customert" Association="Self.FK_dbo_CustomerAddress_dbo_Customert">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomerAddress_StateCode" Association="Self.FK_dbo_CustomerAddress_StateCode">
+            <End Role="StateCode" EntitySet="StateCode" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MovieRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_dbo_CustomerAddress_dbo_Customert" FromRole="Customer" ToRole="CustomerAddress" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="CustAddressId" />
+          </Key>
+          <Property Name="CustAddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StreetAddress2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_dbo_CustomerAddress_dbo_Customert" FromRole="CustomerAddress" ToRole="Customer" />
+          <NavigationProperty Name="StateCode1" Relationship="Self.FK_dbo_CustomerAddress_StateCode" FromRole="CustomerAddress" ToRole="StateCode" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieId" Type="Int32" />
+          <Property Name="Isavailable" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LangId" />
+          </Key>
+          <Property Name="LangId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LangName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseYear" Type="Int16" />
+          <Property Name="rental_duaration" Type="Int16" />
+          <Property Name="rental_rate" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Length" Type="Int16" />
+          <Property Name="RatingId" Type="Int32" />
+          <Property Name="Summary" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="MoviePerson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieId" Type="Int64" />
+          <Property Name="PersonId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PaymentType">
+          <Key>
+            <PropertyRef Name="PaymentTypeId" />
+          </Key>
+          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LasttName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Rental">
+          <Key>
+            <PropertyRef Name="RentalId" />
+          </Key>
+          <Property Name="RentalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InventoryId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RentedOn" Type="DateTime" Precision="3" />
+          <Property Name="RentalValidUntil" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="StateCode">
+          <Key>
+            <PropertyRef Name="StateCode1" />
+          </Key>
+          <Property Name="StateCode1" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeZone" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_dbo_CustomerAddress_StateCode" FromRole="StateCode" ToRole="CustomerAddress" />
+        </EntityType>
+        <Association Name="FK_dbo_CustomerAddress_dbo_Customert">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CustomerAddress_StateCode">
+          <End Role="StateCode" Type="Self.StateCode" Multiplicity="0..1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateCode">
+              <PropertyRef Name="StateCode1" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MovieRentalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddress" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="Movies" EntityType="Self.Movie" />
+          <EntitySet Name="MoviePersons" EntityType="Self.MoviePerson" />
+          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
+          <EntitySet Name="Rentals" EntityType="Self.Rental" />
+          <EntitySet Name="StateCodes" EntityType="Self.StateCode" />
+          <AssociationSet Name="FK_dbo_CustomerAddress_dbo_Customert" Association="Self.FK_dbo_CustomerAddress_dbo_Customert">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CustomerAddress_StateCode" Association="Self.FK_dbo_CustomerAddress_StateCode">
+            <End Role="StateCode" EntitySet="StateCodes" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MovieRentalModelStoreContainer" CdmEntityContainer="MovieRentalEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="MovieRentalModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDesc" ColumnName="ShortDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="MovieRentalModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAddresses">
+            <EntityTypeMapping TypeName="MovieRentalModel.CustomerAddress">
+              <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="CustAddressId" ColumnName="CustAddressId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="MovieRentalModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Isavailable" ColumnName="Isavailable" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="MovieRentalModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="LangId" ColumnName="LangId" />
+                <ScalarProperty Name="LangName" ColumnName="LangName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="MovieRentalModel.Movie">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReleaseYear" ColumnName="ReleaseYear" />
+                <ScalarProperty Name="rental_duaration" ColumnName="rental_duaration" />
+                <ScalarProperty Name="rental_rate" ColumnName="rental_rate" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoviePersons">
+            <EntityTypeMapping TypeName="MovieRentalModel.MoviePerson">
+              <MappingFragment StoreEntitySet="MoviePerson">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTypes">
+            <EntityTypeMapping TypeName="MovieRentalModel.PaymentType">
+              <MappingFragment StoreEntitySet="PaymentType">
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MovieRentalModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LasttName" ColumnName="LasttName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRoles">
+            <EntityTypeMapping TypeName="MovieRentalModel.PersonRole">
+              <MappingFragment StoreEntitySet="PersonRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rentals">
+            <EntityTypeMapping TypeName="MovieRentalModel.Rental">
+              <MappingFragment StoreEntitySet="Rental">
+                <ScalarProperty Name="RentalId" ColumnName="RentalId" />
+                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="RentedOn" ColumnName="RentedOn" />
+                <ScalarProperty Name="RentalValidUntil" ColumnName="RentalValidUntil" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateCodes">
+            <EntityTypeMapping TypeName="MovieRentalModel.StateCode">
+              <MappingFragment StoreEntitySet="StateCode">
+                <ScalarProperty Name="StateCode1" ColumnName="StateCode" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
