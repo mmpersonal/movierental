@@ -1,4 +1,4 @@
-﻿using MovieRentalModel;
+using MovieRentalModel;
 using System.Collections.Generic;
 
 namespace MovieRentalRepository
@@ -9,5 +9,6 @@ namespace MovieRentalRepository
         Movie GetMovieByID(long MovieId);
         List<Movie> GetMoviesByCategory(int CategoryId);
         List<Movie> GetMoviesByRating(int RatingId);
+        bool GetAvailabilityStatus(int movieId);
     }
 }
