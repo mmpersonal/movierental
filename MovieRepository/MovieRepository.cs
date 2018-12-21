@@ -1,4 +1,4 @@
-﻿using MovieRentalModel;
+using MovieRentalModel;
 using MovieRentalRepository;
 using System;
 using System.Collections.Generic;
@@ -38,6 +38,19 @@ namespace MovieRentalRepostory
         public List<Movie> GetMoviesByRating(int RatingId)
         {
             return _mrEntityContext.Movies.Where(i=>i.RatingId==RatingId).ToList();
+        }
+        public bool GetAvailabilityStatus(int movieId)
+        {
+            var query = (from m in _mrEntityContext.Movies
+                         from c in _mrEntityContext.Inventories.Where(x => x.MovieId == m.MovieId)
+                         select new
+                         {
+                            c.Isavailable,
+                            m.MovieId
+                         }
+
+                        ).FirstOrDefault();
+            return (query == null) ? false : (bool)query.Isavailable;
         }
     }
 }

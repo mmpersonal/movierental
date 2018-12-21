@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TransactionService</name>
+    </assembly>
+    <members>
+        <member name="M:TransactionService.TransactionService.RentMovies(System.Collections.Generic.List{MovieRental.DataModel.Connect.MovieRentalTransaction})">
+            <summary>
+            Use this API for processing multiple transactions that are added to cart
+            </summary>
+            <param name="transactions">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+            <returns>List of MovieTransactionResult that has transactionId ,movieId , processedon( when the transaction is processed) and status of the call</returns>
+        </member>
+        <member name="M:TransactionService.TransactionService.RentMovie(MovieRental.DataModel.Connect.MovieRentalTransaction)">
+            <summary>
+             Process the rent transaction
+            </summary>
+            <param name="transaction">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+            <returns>MovieTransactionResult that has transactionId, movieId , processedon( when the transaction is processed) and status of the call</returns>
+        </member>
+        <member name="M:TransactionService.ITransactionService.RentMovies(System.Collections.Generic.List{MovieRental.DataModel.Connect.MovieRentalTransaction})">
+            <summary>
+            Use this API for processing multiple transactions that are added to cart
+            </summary>
+            <param name="transactions">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+            <returns>List of MovieTransactionResult that has transactionId ,movieId , processedon( when the transaction is processed) and status of the call</returns>
+        </member>
+        <member name="M:TransactionService.ITransactionService.RentMovie(MovieRental.DataModel.Connect.MovieRentalTransaction)">
+            <summary>
+             Process the rent transaction
+            </summary>
+            <param name="transaction">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+            <returns>MovieTransactionResult that has transactionId, movieId , processedon( when the transaction is processed) and status of the call</returns>
+        </member>
+    </members>
+</doc>

@@ -1,4 +1,4 @@
-﻿using MovieRental.DataModel.Connect;
+using MovieRental.DataModel.Connect;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,12 @@ namespace SearchService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class SearchService : ISearchService
     {
-        public MovieSummary MovieSearch(JObject searchJObj)
+        /// <summary>
+        /// Returns list of Movies matched the given search terms
+        /// </summary>
+        /// <param name="movieRentalSearchModel"></param>
+        /// <returns>List of movies matched the search term</returns>
+        public List<MovieSummary> MovieSearch(MovieRentalSearchModel movieSearchModel)
         {
             throw new NotImplementedException();
             

@@ -1,4 +1,4 @@
-﻿using MovieRental.DataModel.Connect;
+using MovieRental.DataModel.Connect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,19 @@ namespace TransactionService
     [ServiceContract]
     public interface ITransactionService
     {
-
+        /// <summary>
+        /// Use this API for processing multiple transactions that are added to cart
+        /// </summary>
+        /// <param name="transactions">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+        /// <returns>List of MovieTransactionResult that has transactionId ,movieId , processedon( when the transaction is processed) and status of the call</returns>
         [OperationContract]
         List<MovieTransactionResult> RentMovies(List<MovieRentalTransaction> transactions);
+
+        /// <summary>
+        ///  Process the rent transaction
+        /// </summary>
+        /// <param name="transaction">MovieRentalTransaction model that has movie Id, payment details ( payment type like CC, cash and the card details)</param>
+        /// <returns>MovieTransactionResult that has transactionId, movieId , processedon( when the transaction is processed) and status of the call</returns>
         [OperationContract]
         MovieTransactionResult RentMovie(MovieRentalTransaction transaction);
 

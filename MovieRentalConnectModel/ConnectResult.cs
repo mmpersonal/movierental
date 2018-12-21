@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -19,13 +19,13 @@ namespace MovieRental.DataModel.Connect
         [DataMember]
         public string ErrorMessage { get; set; } = string.Empty;
         
+        public object Data { get; set; } = null;
 
         public ConnectResult(ConnectStatusCode status)
         {
             StatusCode = status;
         }
-
-       
+               
         public ConnectResult(Exception exc)
         {
            StatusCode = ConnectStatusCode.ServerError;

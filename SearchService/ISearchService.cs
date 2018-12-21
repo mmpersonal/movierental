@@ -1,4 +1,4 @@
-﻿using MovieRental.DataModel.Connect;
+using MovieRental.DataModel.Connect;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -10,13 +10,17 @@ using System.Text;
 
 namespace SearchService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
+    
     [ServiceContract]
     public interface ISearchService
     {
-
+        /// <summary>
+        /// Returns list of Movies matched the given search terms
+        /// </summary>
+        /// <param name="movieRentalSearchModel"></param>
+        /// <returns>List of movies matched the search term</returns>
         [OperationContract]
-        MovieSummary MovieSearch(JObject searchJObj);
+        List<MovieSummary> MovieSearch(MovieRentalSearchModel movieRentalSearchModel);
     }
 
 
