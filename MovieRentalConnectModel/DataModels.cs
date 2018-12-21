@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -192,6 +192,33 @@ namespace MovieRental.DataModel.Connect
         public bool IsAvailable { get; set; }
 
     }
+
+    [DataContract]
+    public class MovieRentalSearchModel
+    {        
+        [DataMember]
+        public CategoryEnum Category { get; set; }
+        [DataMember]
+        public string Title { get; set; }
+        [DataMember]
+        public short? ReleaseYear { get; set; }
+        [DataMember]
+        public short? rental_duration { get; set; }
+        [DataMember]
+        public decimal? rental_rate { get; set; }
+        [DataMember]
+        public short? Length { get; set; }
+        [DataMember]
+        public RatingEnum Rating { get; set; }
+        [DataMember]
+        public string FirstName { get; set; }
+        [DataMember]
+        public string LastName { get; set; }
+        [DataMember]
+        public string NickName { get; set; }
+
+
+    }
     [DataContract]
     public class PersonDetails
     {
@@ -247,6 +274,8 @@ namespace MovieRental.DataModel.Connect
         }
         [DataMember]
         public int TransactionId { get; set; }
+        [DataMember]
+        public long MovieId { get; set; }
         [DataMember]
         public DateTime ProcessedOn { get; set; }
 
