@@ -54,7 +54,6 @@
     <Compile Include="Category.cs">
       <DependentUpon>MovieRentalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>MovieRentalModel.tt</DependentUpon>
     </Compile>
